@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- 리엑트 -->
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <!-- 바벨 -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> 
+
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+
+    class LoginBtn extends React.Component {
+      constructor(props) {
+        super(props)
+        
+        //상태 -> 변경되는 값 
+        this.state = { 
+          isLogin:false, 
+        }
+      }
+
+      render() {
+        return ( 
+          <button onClick={()=>{this.setState({isLogin:this.state.isLogin})}}>
+            {this.state.isLogin ? '로그아웃' : '로그인'}
+          </button>
+
+          //JSX
+          // React.createElement('button',{onClick:()=>{this.setState({isLogin:!this.state.isLogin})}},this.state.isLogin ? '로그아웃':'로그인')
+        );  ///값을 바꿀 때는 setState라는 메서드를 실행한다. 
+      }
+    }
+    
+    //  ReactDOM.render() :인자값 두가지  
+    // 첫번째 인자값은 내가 넣을 내용, 두번째 인자값은 내가 넣을 위치
+    ReactDOM.render(
+    <LoginBtn />,  
+    // React.createElement(LoginBtn), //<button>버튼</button> 두번째 인자는 속성값, class id style 등등
+     document.querySelector('#root')
+    )
+  </script>
+
+</body>
+
+</html>

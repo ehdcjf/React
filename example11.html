@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+     <!-- 리엑트 -->
+     <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+     <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+     <!-- 바벨 -->
+     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> 
+   
+</head>
+<body>
+  <div id="root"></div>
+  <script type='text/babel'>
+
+
+
+class GuguList extends React.Component{
+  
+  renderList(n){ 
+    let g = parseInt(n);
+    let arr = new Array(9).fill(null)
+    return (
+      arr.map((v,i)=>{ 
+        return <li key={i} >{g}*{i+1} = {g*(i+1)}</li>
+      })
+    )
+  }
+
+  render(){ 
+    return ( 
+      <>
+      <li>{this.props.gugu}단 입니다. </li>
+      {this.renderList(this.props.gugu)}
+      </>
+    )
+  }
+}
+
+
+
+class GuguForm extends React.Component{ 
+  
+  render(){
+    return(
+    <>
+    <li>
+        <h2>몇단을 구하시겠습니까?</h2>
+        <form onSubmit = {this.props.onSubmit}>
+          <input type="number" name="gugu"  placeholder = '숫자입력' /> 
+          <input type="submit" placeholder = '조회'  /> 
+        </form>
+      </li>
+      {this.props.isSubmit ? <GuguList gugu = {this.props.gugu}/> : '몇단을 구해볼까'}
+    </>
+  )
+}
+}
+
+
+
+
+  class App extends React.Component{
+    constructor(props){ 
+      super(props)
+      this.state = { 
+        isSubmit : false,
+        gugu: 0, 
+      }
+    }
+    
+    onSubmit = (e)=>{ 
+      e.preventDefault(); 
+      this.setState({
+        isSubmit:true,
+        gugu:e.target.gugu.value
+      })
+    }
+
+    render(){ 
+      return(
+        <ul>
+          <GuguForm 
+            isSubmit = {this.state.isSubmit}
+            onSubmit = {this.onSubmit}
+            gugu = {this.state.gugu} 
+          />
+        </ul>
+      )
+    }
+  }
+
+
+    ReactDOM.render(
+      <App/>,
+      document.querySelector('#root')
+    )
+  </script>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- 리엑트 -->
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <!-- 바벨 -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> 
+   
+</head>
+<body>
+  <div id="root">
+    <!-- <ul class = 'comment'>
+      <li>
+        <ul class = 'comment-row'>
+          <li class="comment-id">lhoiktiv</li>
+          <li class="comment-content">hi</li>
+          <li class="comment-date">2021-06-28</li>
+        </ul>
+      </li>
+      <li>
+        <ul class = 'comment-row'>
+          <li class="comment-id">lhoiktiv</li>
+          <li class="comment-content">hi</li>
+          <li class="comment-date">2021-06-28</li>
+        </ul>
+      </li>
+      <li>
+        <ul class = 'comment-row'>
+          <li class="comment-id">lhoiktiv</li>
+          <li class="comment-content">hi</li>
+          <li class="comment-date">2021-06-28</li>
+        </ul>
+      </li>
+      <li>
+        <ul class = 'comment-form'>
+          <form >
+            <h4>댓글쓰기<span>(3)</span></h4> 
+            <span class = 'ps_box'>
+              <input type="text" class="int" placeholder="댓글내용을 입력해주세요">
+            </span>
+            <input type="submit" value="등록" class="btn">
+          </form>
+        </ul>
+      </li>
+    </ul> -->
+    
+
+
+  </div>
+
+  <script type='text/babel'>
+
+
+
+class ComponentRow extends React.Component{ 
+
+
+  renderList(arr){ 
+      return (
+        arr.map((v,i)=>{ 
+          return (
+            <li key={i}>
+          <ul className = "comment-row">
+            <li className="comment-id">lhoiktiv</li>
+            <li className="comment-content">{v['content']}</li>
+            <li className="comment-date">{v['date']}</li>
+          </ul>
+        </li>
+          )
+        })
+      )
+
+    }
+
+    render(){ 
+      return(
+        <>
+        {this.renderList(this.props.comment)}
+        </>
+      )
+    }
+  }
+
+
+
+    class ComponentForm extends React.Component{ 
+      render(){ 
+        return(
+          <>
+          <li>
+              <ul className = 'comment-form'>
+                <form onSubmit = {this.props.onSubmit} >
+                  <h4>댓글쓰기<span> {this.props.comment.length}</span></h4> 
+                  <span className = 'ps_box'>
+                    <input type="text" className="int" name='content' placeholder="댓글내용을 입력해주세요" />
+                  </span>
+                  <input type="submit" value="등록" className="btn"/>
+                </form>
+              </ul>
+            </li>
+            </>
+
+        )
+      }
+    }
+
+
+    class CommentApp extends React.Component{
+      constructor(props){ 
+      super(props)
+      this.state = { 
+        isSubmit : false,
+        comment: [], 
+      }
+    }
+
+    onSubmit = (e)=>{ 
+      e.preventDefault(); 
+
+      if(e.target.content.value!=''){
+        let temp = this.state.comment; 
+      let obj  = {};
+      obj['content'] =e.target.content.value;  
+      obj['date'] =nowDate();  
+      // temp.push(e.target.content.value);
+      temp.push(obj); 
+      e.target.content.value = ''; 
+      e.target.content.focus()
+      this.setState({
+        isSubmit:true,
+        comment:temp, 
+      })
+      }else{ 
+        this.setState({
+        isSubmit:true, 
+      })
+      }
+      
+    
+    }
+
+      render(){ 
+        return(
+          <ul className = 'comment'>
+            <ComponentForm
+            isSubmit = {this.state.isSubmit}
+            onSubmit = {this.onSubmit}
+            comment = {this.state.comment} 
+            />
+            {this.state.isSubmit ? <ComponentRow comment = {this.state.comment}/> :''}
+
+          </ul>
+        );
+      }
+    }
+
+   
+
+  ReactDOM.render(
+    <CommentApp/>, 
+    document.querySelector('#root')
+  )
+
+
+
+  function nowDate(){ 
+      let now = new Date(); 
+      let y = now.getFullYear();
+      let mm = now.getMonth()+1; 
+      let d = now.getDate(); 
+      let h = now.getHours(); 
+      let m = now.getMinutes(); 
+      let s = now.getSeconds(); 
+      if(mm<10) mm = '0'+mm; 
+      if(d<10) d = '0'+d; 
+      if(h<10) h = '0'+h; 
+      if(m<10) m = '0'+m; 
+      if(s<10) s = '0'+s; 
+      
+      return `${y}-${mm}-${d} ${h}:${m}:${s}`
+    }
+
+
+  </script>
+
+
+
+
+
+
+  <!-- <script type='text/babel'>
+
+  //컴포넌트 만들 떄 첫 글자는 항상 대문자.
+  
+  class Hello extends React.Component{
+    render(){ 
+      return(
+        <>
+          Hello  
+        </>
+      )
+    }
+  }
+
+  
+  
+  class World extends React.Component{
+    render(){ 
+      return(
+        <>
+          world  
+        </>
+      )
+    }
+  }
+
+//대괄호를 넣어 변수를 사용. {변수}
+  class App extends React.Component{
+    render(){ 
+      const ele = <h1>하이</h1>
+      return(
+        <>
+          {ele}  
+          <Hello/><World/>   
+        </>
+      )
+    }
+  }
+
+
+    ReactDOM.render(
+      <App/>,
+      document.querySelector('#root')
+    )
+  </script> -->
+</body>
+</html>
