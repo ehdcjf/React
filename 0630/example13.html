@@ -58,34 +58,7 @@
 
 
 
-class ComponentRow extends React.Component{ 
 
-
-  renderList(arr){ 
-      return (
-        arr.map((v,i)=>{ 
-          return (
-            <li key={i}>
-          <ul className = "comment-row">
-            <li className="comment-id">lhoiktiv</li>
-            <li className="comment-content">{v['content']}</li>
-            <li className="comment-date">{v['date']}</li>
-          </ul>
-        </li>
-          )
-        })
-      )
-
-    }
-
-    render(){ 
-      return(
-        <>
-        {this.renderList(this.props.comment)}
-        </>
-      )
-    }
-  }
 
 
 
@@ -96,7 +69,7 @@ class ComponentRow extends React.Component{
           <li>
               <ul className = 'comment-form'>
                 <form onSubmit = {this.props.onSubmit} >
-                  <h4>댓글쓰기<span> {this.props.comment.length}</span></h4> 
+                  <h4>댓글쓰기<span> {this.props.length}</span></h4> 
                   <span className = 'ps_box'>
                     <input type="text" className="int" name='content' placeholder="댓글내용을 입력해주세요" />
                   </span>
@@ -111,50 +84,77 @@ class ComponentRow extends React.Component{
     }
 
 
+
+    class ComponentRow extends React.Component{ 
+      render(){ 
+        return(
+          <li key={this.key}>
+            <ul className = "comment-row">
+              <li className="comment-id">{this.props.userid}</li>
+              <li className="comment-content">{this.props.content}</li>
+              <li className="comment-date">{this.props.date}</li>
+            </ul>
+          </li>
+        )
+      }
+    }
+
     class CommentApp extends React.Component{
       constructor(props){ 
       super(props)
       this.state = { 
         isSubmit : false,
-        comment: [], 
-      }
+        comments: [
+          {userid:'lhoiktiv', content:'하이', date:'2021-06-30'},
+          {userid:'lhoiktiv', content:'하이', date:'2021-06-30'},
+          {userid:'lhoiktiv', content:'하이', date:'2021-06-30'}
+        ], 
+      }                                                                                                                                                                                                                                                          
     }
 
     onSubmit = (e)=>{ 
       e.preventDefault(); 
-
-      if(e.target.content.value!=''){
-        let temp = this.state.comment; 
-      let obj  = {};
-      obj['content'] =e.target.content.value;  
-      obj['date'] =nowDate();  
-      // temp.push(e.target.content.value);
-      temp.push(obj); 
-      e.target.content.value = ''; 
-      e.target.content.focus()
-      this.setState({
-        isSubmit:true,
-        comment:temp, 
-      })
-      }else{ 
-        this.setState({
-        isSubmit:true, 
-      })
+      let input = e.target.content.value; 
+      let obj = {
+        userid:'lhoiktiv',
+        content:input, 
+        date:'2021-06-30'
       }
-      
-    
+
+      let {comments} = {...this.state}; 
+      comments.push(obj)
+
+      this.setState({
+        // isSubmit:true,
+        comment:comments, 
+      })
+
+    }
+
+    renderRow = () =>{ 
+      let {comments} = {...this.state}
+      return ( 
+        comments.map( (value,key) =>{ 
+          return (
+            <ComponentRow 
+              key = {key}
+              userid={value.userid}
+              content={value.content}
+              date={value.date}
+            /> 
+          )
+        })
+      )
     }
 
       render(){ 
         return(
           <ul className = 'comment'>
             <ComponentForm
-            isSubmit = {this.state.isSubmit}
+            length = {this.state.comments.legth}
             onSubmit = {this.onSubmit}
-            comment = {this.state.comment} 
             />
-            {this.state.isSubmit ? <ComponentRow comment = {this.state.comment}/> :''}
-
+            {this.renderRow()}
           </ul>
         );
       }
@@ -163,7 +163,7 @@ class ComponentRow extends React.Component{
    
 
   ReactDOM.render(
-    <CommentApp/>, 
+    <CommentApp  />, 
     document.querySelector('#root')
   )
 
@@ -190,54 +190,5 @@ class ComponentRow extends React.Component{
   </script>
 
 
-
-
-
-
-  <!-- <script type='text/babel'>
-
-  //컴포넌트 만들 떄 첫 글자는 항상 대문자.
-  
-  class Hello extends React.Component{
-    render(){ 
-      return(
-        <>
-          Hello  
-        </>
-      )
-    }
-  }
-
-  
-  
-  class World extends React.Component{
-    render(){ 
-      return(
-        <>
-          world  
-        </>
-      )
-    }
-  }
-
-//대괄호를 넣어 변수를 사용. {변수}
-  class App extends React.Component{
-    render(){ 
-      const ele = <h1>하이</h1>
-      return(
-        <>
-          {ele}  
-          <Hello/><World/>   
-        </>
-      )
-    }
-  }
-
-
-    ReactDOM.render(
-      <App/>,
-      document.querySelector('#root')
-    )
-  </script> -->
 </body>
 </html>
