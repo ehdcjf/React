@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+   <!-- 리엑트 -->
+   <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+   <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+   <!-- 바벨 -->
+   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+ 
+</head>
+<body>
+  
+  <div id='root'></div>
+
+<script type="text/babel">
+  
+
+
+  class CommmentList extends React.Component{ 
+    render(){ 
+      return; 
+    }
+  }
+
+
+  class CommentForm extends React.Component{
+    render(){ 
+      return ( 
+        <li className = 'comment-form'>
+          <form>
+          <h4>댓글쓰기<span>{}</span></h4>
+          <span className='ps_box'>
+          <input
+            type="text"
+            className='int'
+            name='content'
+            placeholder='댓글내용을 입력해주세요'
+          />
+          </span>
+          <input type="submit" value='등록' className='btn' />
+          </form>
+        </li>
+      )
+    }
+  }
+
+  class CommentLayout extends React.Component{ 
+    render(){ 
+      return(
+        <ul className = 'comment'>
+          {this.props.children}
+        </ul>
+      )
+    }
+  }
+  
+  class Comment extends React.Component{ 
+    state = { 
+      list:[], 
+    }
+
+    componentDidMount(){ 
+      let list = [
+        {userid:'kkk', content:'훠훠훠', date:'2021-07-01'},
+        {userid:'kkk', content:'훠훠훠', date:'2021-07-01'},
+        {userid:'kkk', content:'훠훠훠', date:'2021-07-01'},
+      ]
+      this.setState({list:list})
+    }
+
+    render(){ 
+      return ( 
+        <CommentLayout> 
+         <CommentForm /> 
+         <CommentList /> 
+        </CommentLayout>
+      )
+    }
+
+  }
+
+
+  class App extends React.Component{ 
+    render(){ 
+      return (
+        <Comment /> 
+      )
+    }
+  }
+
+  
+  ReactDOM.render(
+    <App/>,
+    document.querySelector('#root')
+  )
+
+</script>
+
+</body>
+</html>

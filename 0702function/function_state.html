@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+   <!-- 리엑트 -->
+   <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+   <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+   <!-- 바벨 -->
+   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id='root'></div>
+
+  <script type="text/babel">
+//클래스의 장점은 상속! 다른곳에서 데이터를 전달 받기 쉬움. 
+//
+    function App(){ 
+      let [text,setText]/*'변수', 변수값을 바꿀 '함수'*/ = React.useState('hello function');/*최초 변수값*/ 
+      let [text1,setText1] = React.useState('hello function~~~~'); 
+      let [text3,setText3] = React.useState('hello function^^'); 
+      let [list,setList] = React.useState([1,2,3,4,5])
+      const handleClick = e=>{ 
+       setText('change')
+       setText1('change~~~~~~~')
+       setText3('change^^;')
+      }
+      
+    
+      return (
+        <>
+        <p onClick = {handleClick}>{text}</p>
+        <p>{text1}</p>
+        <p>{text3}</p>
+        <p>{list.map(v=>v===5)}</p>
+        </>
+      )
+    }
+
+
+
+    // class App extends React.Component{ 
+     
+    //   state = { 
+    //       text : 'hello Friday!',
+    //       text2:'hello React!!',
+    //       text3:'hello Zeke Yeager'
+    //     }
+    //      handleClick = e=>{ 
+    //  this.setState({
+    //    text:'바꿈',
+    //    text1:'바꿈',
+    //    text3:'바꿈',
+    //  })
+    //}
+      
+    //   render(){ 
+    //     return( 
+    //       <p onClick = {this.handleClick}>{this.state.text}</p>
+    //     )
+    //   }
+    // }
+
+
+    ReactDOM.render(
+      <App />,
+      document.querySelector('#root'),
+    )
+
+  </script>
+</body>
+</html>

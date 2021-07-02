@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+
+
+
+
+  <script type='text/javascript'>
+  (function nowScroll() {
+		let container = document.querySelectorAll('.container');
+		let wrap = document.querySelectorAll('.now-wrap');
+		let horizontal = document.querySelectorAll('.cont-inner');
+		let spaceHolder = document.querySelectorAll('.sticky-elem');
+		let scrollCal = $(spaceHolder).offset().top;
+
+		function calcDynamicHeight(ref) {
+			let vw = window.innerWidth;
+			let vh = window.innerHeight;
+			let objectWidth = ref.scrollWidth;
+
+			return objectWidth - vw + vh + 150;
+		};
+
+		wrap[0].style.height = calcDynamicHeight(horizontal[0]) + 'px';
+    
+		window.addEventListener('scroll', function() {
+			horizontal[0].style.transform = 'translateX(' + (-$(spaceHolder).offset().top + scrollCal) + 'px) rotate(.001deg)';
+		}, false);
+		window.addEventListener('resize', function() {
+			wrap[0].style.height = calcDynamicHeight(horizontal[0]) + 'px';
+		}, false);
+		
+	})();
+
+  </script>
+</body>
+</html>
