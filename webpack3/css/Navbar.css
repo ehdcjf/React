@@ -45,10 +45,12 @@
   text-align: left;
 }
 
-.sub_menu{
-  animation: 0.5s dropdown;
+ .sub_menu{
+  height: auto;
+  overflow: hidden;
+  
 }
-
+/*  
 @keyframes dropdown{ 
   0%{
     transform-origin: top;
@@ -59,7 +61,7 @@
     transform-origin: top;
     transform: scaleY(1);
   }
-}
+} */
 
 .sub_menu>li{
   width: 100%;

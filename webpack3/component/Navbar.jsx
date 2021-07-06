@@ -7,11 +7,14 @@ import { ImCross} from 'react-icons/im'
 class Navbar extends Component {
 
   constructor(props){
-    super(props);
+  super(props);
+
+  this.submenuRef = React.createRef();
   
   this.state = {
     clickedSub:0, 
     toggle: true, 
+    
     social: [
       {
         id: 1,
@@ -75,7 +78,6 @@ class Navbar extends Component {
   }
 
   }
-
   
   handleToggle(){
     this.setState({
@@ -96,10 +98,37 @@ class Navbar extends Component {
     }
   }
 
+  componentDidUpdate(){   
+    const submenuBox = this.submenuRef.current
+    if(submenuBox!==null){
+      const clientRect = submenuBox.getBoundingClientRect();
+      const maxHeight = clientRect.height;
+      
+      submenuBox.style.height=0
+      let nowHeight = maxHeight/5; 
+      let dropdown =setInterval(()=>{
+        if(nowHeight>maxHeight){
+          clearInterval(dropdown)
+        }
+        nowHeight*=1.5;
+        if(nowHeight>maxHeight) nowHeight=maxHeight;
+        submenuBox.style.height=nowHeight+'px'
+        
+      },20)
+
+    }
+
+
+
+  }
+
+
+
+
   show_submenu(item){
     return(
       <>
-      <ul className='sub_menu'>
+      <ul className='sub_menu' ref={this.submenuRef}  >
         {item.map((v,i)=>{ 
           return(
             <li key={i}>
@@ -108,6 +137,7 @@ class Navbar extends Component {
           )
         })}
       </ul>
+
       </>
     )
   }
