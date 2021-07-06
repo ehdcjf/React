@@ -1,0 +1,135 @@
+
+.nav-header{ 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+/* 0.75rem = 12px */
+/* 1rem = 16px */
+.logo{ 
+  font-size: 3rem; 
+}
+
+.links-container{
+  height: 0;
+  overflow: hidden;
+}
+
+.social-icons{ 
+  height: 0;
+  overflow: hidden;
+}
+
+.nav-toggle{
+  margin-right: 1rem;
+  font-size: 2.5rem;
+  background: transparent;
+  border-color: transparent;
+}
+
+.side_nav>ul>li{
+  width: 100%;
+  border-bottom: 2px solid #d7dbe0;
+  overflow: hidden;
+}
+
+.side_nav>ul>li>span{
+  margin-left: 1rem;
+  padding: 0.875rem 0;
+  display: block;
+  color: #000;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+.sub_menu{
+  animation: 0.5s dropdown;
+}
+
+@keyframes dropdown{ 
+  0%{
+    transform-origin: top;
+    transform: scaleY(0);
+  }
+
+  100%{
+    transform-origin: top;
+    transform: scaleY(1);
+  }
+}
+
+.sub_menu>li{
+  width: 100%;
+  
+  display: flex;
+  align-items: center;
+  justify-content:flex-start;
+  padding: 1rem;
+  border-top: 2px solid #d7dbe0;
+  background-color: #e7e9ec;
+}
+
+.sub_menu>li>a{ 
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #000;
+}
+
+
+
+
+
+
+
+
+
+
+/* pc버전 */
+@media screen and (min-width:800px) {
+  .logo{
+    font-size: 4rem;
+  }
+
+  .nav-toggle{
+    font-size: 0px;
+  }
+
+  .side_nav{
+    display: none;
+  }
+
+  .nav-center{ 
+    max-width: 1170px;
+    margin:0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+
+  .links-container{ 
+    height: auto;
+  }
+
+  .links{
+    display: flex;
+  }
+
+  .links >li>a{ 
+    margin: 0 0.5rem;
+    color: #000;
+    font-size: 1.25rem;
+  }
+
+  .social-icons{ 
+    display: flex; 
+  }
+
+  .social-icons>li>a{ 
+    margin:0 0.5rem; 
+    color: #000;
+  }
+}

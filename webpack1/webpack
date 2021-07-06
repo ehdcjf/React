@@ -1,0 +1,57 @@
+모듈화. 
+
+npm install react;
+npm install react-dom;
+npm install -D webpack;   -D는 개발용이라는 뜻 
+npm install -D webpack-cli; 
+npm install -D @babel/core
+npm install -D @babel/preset-env  
+npm install -D @babel/preset-react //바벨과 리액트
+npm install -D bable-loader   //바벨과 웹팩을 이어줌 
+
+npm install -D react-refresh
+npm install -D @pmmmwh/react-refresh-webpack-plugin
+npm install -D webpack-dev-server
+
+
+cd.. 
+npm install -g create-react-app
+npx create-react-app "filename"
+
+
+css관련 
+
+npm install -D style-loader
+npm install -D css-loader
+npm install -D mini-css-extract-plugin
+
+react 페이지에서 
+inport css 파일을 가져올 수 있게함 
+
+========================================
+config에서  아래와 같이 설정 
+
+const MiniCssExtractPlugin = require('mini-css-extract-plugin'); 
+
+{
+      test:/\.css$/,
+      use:[MiniCssExtractPlugin.loader,'css-loader']
+
+    }
+
+ new MiniCssExtractPlugin({filename:'app.css'}),
+---------------------------------------------------------
+index.html에  
+  <link rel="stylesheet" href="./dist/app.css">   넣어주면됨.
+==========================================================
+
+
+
+
+패키지.제이슨에서
+ "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev":"webpack"
+  },
+
+  npm run dev 해주면  웹팩 실행됨. 
