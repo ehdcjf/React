@@ -1,0 +1,25 @@
+.privacy_statement>h4{
+  width: 100%;
+  text-align: left;
+  padding-bottom: 0.625rem;
+  margin-bottom: 0.625rem;
+  border-bottom:1px solid #004385 ;
+  box-sizing: border-box;
+}
+
+.privacy_statement>pre{
+  width: 53.125rem;
+  height: 6.25rem;
+  padding: 0.625rem 0 0.625rem 1.25rem;
+  overflow-y: scroll;
+  font-size: 0.875rem;
+}
+
+.privacy_statement>div{
+  margin-top: 1.25rem;
+  text-align: right;
+  font-size: 0.75rem;
+  color: #666;
+
+}
+

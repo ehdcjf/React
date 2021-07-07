@@ -1,0 +1,23 @@
+.left_menu{
+  float: left;
+  width: 15rem;
+  height: auto;
+  overflow: hidden;
+}
+
+.left_menu>h3{
+  position: relative;
+    padding-top: 1.25rem;
+    padding-bottom: 3.75rem;
+    font-size: 1.625rem;
+    font-weight: 300;
+    color: #003264;
+}
+
+.left_menu>ul>li{
+ width: 100%;
+ height: 3.125rem;
+ font-size: 1rem;
+
+}
+
