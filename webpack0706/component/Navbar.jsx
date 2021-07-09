@@ -105,7 +105,7 @@ class Navbar extends Component {
       const maxHeight = clientRect.height;
       
       submenuBox.style.height=0
-      let nowHeight = maxHeight/5; 
+      let nowHeight = maxHeight/10; 
       let dropdown =setInterval(()=>{
         if(nowHeight>maxHeight){
           clearInterval(dropdown)

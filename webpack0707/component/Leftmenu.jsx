@@ -6,9 +6,18 @@ class Leftmenu extends Component{
     super(props);
     this.state={ 
       '상담신청':[
-        '상담게시판',
-        '지원하기',
-        '자주 묻는 질문'
+        {
+          name:'상담게시판',
+          link:'/'
+        },
+        {
+          name:'지원하기',
+          link:'/'
+        },
+        {
+          name:'자주 묻는 질문',
+          link:'/'
+        }
       ]
     }
   
@@ -31,7 +40,7 @@ class Leftmenu extends Component{
         {items.map((v,i)=>{ 
           return(
             <li key={i}>
-              <a href="/">{v}</a>
+              <a href={v.link}>{v.name}</a>
             </li>
           )
         })}

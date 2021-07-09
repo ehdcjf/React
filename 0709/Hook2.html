@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- 함수형으로 만들기 -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="0707.css">
+     <!-- 리엑트 -->
+     <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+     <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+     <!-- 바벨 -->
+     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> 
+   
+</head>
+<body>
+  <div id="root"></div>
+  <script type='text/babel'>
+
+    
+
+    const useInput = (defaultValue)=>{ 
+     const [value,setValue] = React.useState(defaultValue)
+     const onChange = e =>{ 
+       const {target:{value}} = e 
+       setValue(value)
+     }
+
+     return {value,onChange}
+    }
+
+
+    const App = ()=>{ 
+      const user = useInput('kkk');
+      const name = useInput('dddd')
+
+      return(
+        <>
+        <h1>hello Hook</h1>
+        <input {...user} type="text" name='user' placeholder = '아이디를 입력해주세요'/>
+        <input {...name} type="text" name='name' placeholder = '이름를 입력해주세요'/>
+        </>
+      )
+    }
+
+    ReactDOM.render(
+      <App />,
+      document.querySelector('#root')
+    )
+
+  </script>
+</body>
+</html>

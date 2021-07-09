@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- 함수형으로 만들기 -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="0707.css">
+     <!-- 리엑트 -->
+     <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+     <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+     <!-- 바벨 -->
+     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> 
+   
+</head>
+<body>
+  <div id="root"></div>
+  <script type='text/babel'>
+
+    
+    const App = ()=>{ 
+      //첫번째는 변수. 두번째는 함수. 
+      const [dog,setDog] = React.useState();  //상태값 선언. 
+      //const [dog,setDog] = React.useState('state 초기값선언');  //상태값 선언. 
+      
+      // (함수표현, 배열[상태값])
+      React.useEffect(()=>{
+        refresh();
+      },[])
+      //배열의 상태값이 빈배열이라면? = > 최초실행, componentDibMount
+
+
+      const refresh = async() =>{
+        const response = await fetch('https://dog.ceo/api/breeds/image/random')
+        const data = await response.json()
+        setDog(data)
+      }
+
+      return(
+        <>
+          <div className='photo_box'>
+            {dog ? <img className='dog_photo' src={dog.message}/> :'loadding'}
+            <button onClick = {refresh}>
+              새로고침
+            </button>
+          </div>
+        </>
+      )
+    }
+
+    ReactDOM.render(
+      <App />,
+      document.querySelector('#root')
+    )
+
+  </script>
+</body>
+</html>

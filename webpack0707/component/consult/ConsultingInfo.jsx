@@ -11,6 +11,7 @@ class ConsultingInfo extends Component{
       <h4>상담정보</h4>
       <div>
         <table>
+          <tbody>
           <tr>
             <td>이름*</td>
             <td><input type="text" /></td>
@@ -60,6 +61,7 @@ class ConsultingInfo extends Component{
             <td>상담내용</td>
             <td><textarea name="" id="" cols="30" rows="10"></textarea></td>
           </tr>
+          </tbody>
         </table>
       </div>
       <div className='consulting_info_btn_box'>

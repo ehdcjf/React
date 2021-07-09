@@ -1,0 +1,10 @@
+.photo_box{
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.dog_photo{
+  width: 1000px;
+  height: 1000px;
+}
