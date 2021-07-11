@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../Comment.css">
+
+  <!-- 리엑트 -->
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <!-- 바벨 -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+</head>
+
+<body>
+  
+  <div id="root"></div>
+  <script type='text/babel'>
+
+
+    const CommentForm = (props)=> {
+      const [content,setContent] = React.useState('')
+     
+
+      const handleChange = (e)=>{ 
+        setContent(e.target.value)
+      }
+
+      const handleSubmit = (e)=>{ 
+        e.preventDefault();
+        props.onCreate(content);
+        setContent('')
+      }
+
+     
+        return (
+          <li className='comment-form'>
+            <form onSubmit = {handleSubmit}>
+              <h4>댓글쓰기<span>{props.count} </span></h4>
+              <span className='ps_box'>
+                <input
+                  type="text"
+                  className="int"
+                  name='content'
+                  placeholder="댓글내용을 입력해주세요"
+                  value = {content}
+                  onChange = {handleChange} 
+                />
+              </span>
+              <input type="submit" value="등록" className="btn" />
+            </form>
+          </li>
+        );
+    }
+
+ 
+
+    //반복해서 돌려줘야하는 부분
+    const CommentList = (props)=> {
+      const [content,setContent] = React.useState(''); 
+      const [currentKey,setKey] = React.useState(Infinity)
+      
+
+      const handleClick = (key,content)=>{ 
+        setContent(content); 
+        setKey(key); 
+      }
+
+      const handleChange = (e)=>{ 
+        
+        setContent(e.target.value)
+      }
+
+      const handleEnter = (e)=>{
+
+        if(e.key === 'Enter'){
+          let tempkey = JSON.parse(JSON.stringify(currentKey))
+          let tempcontent = JSON.parse(JSON.stringify(content))
+          props.onUpdate(tempcontent, tempkey);
+          setKey(Infinity);
+          setContent('');
+        }
+      }
+
+      const inputBox = (originContent)=>{ 
+        console.log(originContent)
+        console.log(content)
+        return(
+          <input
+            type ='text'
+            className = 'comment-update-input'
+            name='content'
+            defaultValue ={originContent}
+            onKeyDown = {handleEnter}
+            onChange = {handleChange}
+          />
+        )
+      }
+
+      const renderList = () => {
+        return (
+          props.items.map((item, key) => {
+
+            return (
+              <li key={key}>
+                <ul className='comment-row'>
+                  <li className="comment-id">{item.userid}</li>
+                  <li className="comment-content">
+                   
+              <span onClick = {()=>{handleClick(key,item.content)}}>
+                {key === currentKey? inputBox(item.content) : item.content} 
+              </span>
+              <span 
+                className='comment-delete-btn'
+                onClick = {()=>{props.onDelete(key)}}
+                //인자값이 있을 때는 익명함수로 묶어줘야함 
+              > 
+              X
+              </span>
+                    </li>
+                  <li className="comment-date">{item.date}</li>
+                </ul>
+              </li>
+            )
+          })
+
+        )
+      }
+        return (
+          <>
+            {renderList()}
+          </>
+        );
+      
+    }
+
+
+    const CommentLayout = (props)=>{
+        return (
+          <ul className="comment">
+            {props.children}
+          </ul>
+        ) 
+    }
+
+    const Comment = ()=>{ 
+      const [list,setList] = React.useState([])
+
+      const onCreate = (data) => {
+        let item = {userid:'kkk', content:data, date:'2021-07-01'}
+        let tempList = list.slice();  
+        let newList = [...tempList,{...item}]; 
+        setList(newList);
+      }
+
+      const onDelete =(data)=>{ 
+        console.log(data); 
+        let tempList = list.slice(); 
+        let newList = tempList.filter((value,index)=>{
+          return data!==index;
+        })
+        setList(newList);
+      }
+
+      const  onUpdate = (content,index)=>{ 
+        let tempList = list.slice(); 
+        tempList[index].content = content; 
+        setList(tempList);
+      }
+
+      React.useEffect(()=>{ 
+        let list = [
+          { userid: 'king', content: '하하하', date: '2021-07-01' },
+          { userid: 'king', content: '호호호', date: '2021-07-01' },
+          { userid: 'king', content: '히히히', date: '2021-07-01' },
+          { userid: 'king', content: '훠훠훠', date: '2021-07-01' },
+        ]
+        setList(list);
+
+      },[])
+
+      return (
+          <CommentLayout>
+            <CommentForm
+              onCreate={onCreate}
+              count = {list.length}
+            />
+            <CommentList
+              items={list}
+              onUpdate={onUpdate}
+              onDelete={onDelete}
+            />
+          </CommentLayout>
+        )
+    }
+
+      
+
+    const App = () => { 
+      return(
+        <Comment />
+      )
+    }
+
+
+    ReactDOM.render(
+      <App />,
+      document.querySelector('#root')
+    )
+
+  </script>
+</body>
+
+</html>
