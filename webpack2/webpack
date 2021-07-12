@@ -59,3 +59,19 @@ index.html에
 
 
 npm install react-icons
+
+
+
+
+
+메모이제이션
+  const userCount = useMemo(()=>{ 
+    console.log('count')
+    return list.length
+  },[list.length])
+  /* 
+    useMemo(콜백함수, 상태값을 담은 배열)
+    콜백함수의 리턴값과 배열에 담긴 값이 다를 때만 실행.
+
+
+  */
